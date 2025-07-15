@@ -1,8 +1,8 @@
-import { initSensor, updateTemperature } from "./sensor.js";
-import { config } from '../../src/app/config/index.js';
+import { initTempSensor, updateTemperature } from "./sensor.js";
+import { config } from '../config/index.js';
 
-const sensorConfig = config.sensors?.[0] || { unitId: 1, port: 5020 };
+const sensorConfig = config.sensors?.[0] || { unitId : 1, port : 5020, type :"Temperature Sensor" };
 
-initSensor(sensorConfig);
-// Start the temperature update loop
+initTempSensor(sensorConfig);
+
 updateTemperature();

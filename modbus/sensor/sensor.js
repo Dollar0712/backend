@@ -12,7 +12,7 @@ const INTERVAL_REGISTER = 6;
 let holdingRegisters;
 let base = 25;
 
-export function initSensor(sensorConfig) {
+export function initTempSensor(sensorConfig) {
   const { unitId, port } = sensorConfig;
   // Default temperature and settings
   const temperature = 251;
