@@ -7,7 +7,7 @@ async function seedTemperatureData() {
 
   // 1. Monthly: one record per month for the past 12 months
   for (let i = 11; i >= 0; i--) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1, 12, 0, 0);
+    const d = new Date(now.getFullYear(), now.getMonth() - i);
     values.push({
       device_id: deviceId,
       value: 20 + Math.sin(i / 2) * 5 + Math.random() * 2,
@@ -15,10 +15,9 @@ async function seedTemperatureData() {
     });
   }
 
-  // 2. Daily: one record per day for the current month
-  const daysInMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
-  for (let i = 0; i < daysInMonth; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth(), i + 1, 10, 0, 0);
+  // 2. Daily: one record per day for the past 30 days
+  for (let i = 29; i >= 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate() - i);
     values.push({
       device_id: deviceId,
       value: 18 + Math.sin(i / 3) * 4 + Math.random() * 2,
@@ -28,7 +27,7 @@ async function seedTemperatureData() {
 
   // 3. Per-hour for past 24 hours
   for (let i = 24; i > 0; i--) {
-    const d = new Date(now.getTime() - i * 60 * 60 * 1000);
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() - i);
     values.push({
       device_id: deviceId,
       value: 15 + Math.sin(d.getHours() / 3) * 3 + Math.random() * 1.5,
@@ -36,9 +35,9 @@ async function seedTemperatureData() {
     });
   }
 
-  // 4. Per-second for past 1 hour (3600 records)
-  for (let i = 3600; i > 0; i--) {
-    const d = new Date(now.getTime() - i * 1000);
+  // 4. Per-minutes for past 1 hour (60 records)
+  for (let i = 60; i > 0; i--) {
+    const d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours(), now.getMinutes() - i);
     values.push({
       device_id: deviceId,
       value: 16 + Math.sin(d.getMinutes() / 10) * 2 + Math.random() * 1.5,
