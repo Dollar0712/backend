@@ -26,16 +26,24 @@ async function seedTemperatureData() {
     });
   }
 
-  // 3. Hourly/Minutely: for today, 4 records per hour (every 15 minutes)
-  for (let h = 0; h < 24; h++) {
-    for (let m = 0; m < 60; m += 15) {
-      const d = new Date(now.getFullYear(), now.getMonth(), now.getDate(), h, m, 0);
-      values.push({
-        device_id: deviceId,
-        value: 16 + Math.sin(h / 3) * 3 + Math.random() * 1.5,
-        timestamp: d.toISOString(),
-      });
-    }
+  // 3. Per-hour for past 24 hours
+  for (let i = 24; i > 0; i--) {
+    const d = new Date(now.getTime() - i * 60 * 60 * 1000);
+    values.push({
+      device_id: deviceId,
+      value: 15 + Math.sin(d.getHours() / 3) * 3 + Math.random() * 1.5,
+      timestamp: d.toISOString(),
+    });
+  }
+
+  // 4. Per-second for past 1 hour (3600 records)
+  for (let i = 3600; i > 0; i--) {
+    const d = new Date(now.getTime() - i * 1000);
+    values.push({
+      device_id: deviceId,
+      value: 16 + Math.sin(d.getMinutes() / 10) * 2 + Math.random() * 1.5,
+      timestamp: d.toISOString(),
+    });
   }
 
   // Batch insert

@@ -9,7 +9,7 @@
     "dev": "nodemon --watch src --watch modbus src/server.js",
     "sensor": "node modbus/sensor/index.js",
     "client": "node modbus/client/index.js",
-    "seed:temperature": "node scripts/seedTemperatureData.js"
+    "seed-data": "node scripts/seedTemperatureData.js"
   },
   "keywords": [],
   "author": "",
